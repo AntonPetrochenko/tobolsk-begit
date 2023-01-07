@@ -100,6 +100,24 @@ return function (x,y,z,joy)
         
       end
 
+      if self.ground then
+        if self.ground.tag_dirt then
+          self.vec3_vel.x = self.vec3_vel.x / 2
+        end
+        if self.ground.tag_conveyor and tonumber(self.ground.tag_conveyor) then
+          self.vec3_vel.x = self.vec3_vel.x + tonumber(self.ground.tag_conveyor)
+        end
+      end
+
+      for i,v in pairs(WORLD.objects) do
+        if v.__type == 'Metal' then
+          if (self.vec3_pos:dist(v.vec3_pos) < v.width) then
+            self:set_state('squat')
+            v:destroy()
+          end
+        end
+      end
+
       local collision_top, collision_wall = WORLD.collide(self, dt)
 
       if collision_top and self.vec3_vel.z < 1 then
