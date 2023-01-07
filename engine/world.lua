@@ -714,18 +714,19 @@ function world.editor()
                 v['tag_' .. tagnameinput] = '+'
                 tagnameinput = ''
               end
-            end
-  
-            for property_name, property_value in pairs(v) do
-              if string.find(property_name, 'tag_') then
-                v[property_name] = imgui.InputText(property_name, property_value, 32)
-                imgui.SameLine()
-                imgui.Button('(Delete tag)')
-                if dblClick() then
-                  v[property_name] = nil
+              for property_name, property_value in pairs(v) do
+                if string.find(property_name, 'tag_') then
+                  v[property_name] = imgui.InputText(property_name, property_value, 32)
+                  imgui.SameLine()
+                  imgui.Button('(Delete tag)')
+                  if dblClick() then
+                    v[property_name] = nil
+                  end
                 end
               end
             end
+  
+            
            
             
 

@@ -1,7 +1,7 @@
 WORLD = require 'engine.world'
 PROFILE = require 'engine.profile'
-APPLECAKE = require("engine.applecake")(true) -- False will disable AppleCake for your project
-APPLECAKE.setBuffer(true) -- Buffer data, and only send it to be saved when appleCake.flush is called
+APPLECAKE = require("engine.applecake")(false) -- False will disable AppleCake for your project
+-- APPLECAKE.setBuffer(true) -- Buffer data, and only send it to be saved when appleCake.flush is called
 APPLECAKE.beginSession()
 
 imgui = require 'imgui'
