@@ -111,16 +111,17 @@ return function (x,y,z,joy)
         end
         if self.ground.tag_scene_transition then
           local metal_count = 0
+          local players = 0
           for i,v in pairs(WORLD.objects) do
             if v.__type == 'Metal' then
               metal_count = metal_count + 1
             end
           end
-          if metal_count == 0 then
+          for i,v in pairs(GAME) do
+            players = players + 1
+          end
+          if metal_count == 0 and players >= 2 then
             scene_manager.load(self.ground.tag_scene_transition)
-            for i,v in pairs(GAME) do
-              print(v)
-            end
           end
         end
       end
