@@ -760,6 +760,10 @@ function world.editor()
           if imgui.Button('Fall down') then
             node.z = cross_target_z
           end
+          imgui.Button('Delete this')
+          if dblClick() then
+            world.nodes[idx] = nil
+          end
         end
       end
     end

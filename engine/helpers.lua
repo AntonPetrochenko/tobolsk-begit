@@ -30,7 +30,7 @@ function DROPSHADOW(object)
 	love.graphics.push('all')
 	love.graphics.setColor(0,0,0,0.5)
 	local shadow_z = WORLD.ray_downwards(object.vec3_pos:unpack())
-	local draw_x, draw_y = SCREENSPACE(0, 0, shadow_z - object.vec3_pos.z)
+	local draw_x, draw_y = SCREENSPACE(-CAMERA_X, -CAMERA_Y, -CAMERA_Z + shadow_z - object.vec3_pos.z)
 	love.graphics.ellipse("fill", draw_x, draw_y, 16, 8)
 	love.graphics.pop()
 
