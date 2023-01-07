@@ -1,8 +1,10 @@
 local bomject = require 'engine.bomject'
 local cpml = require 'engine.cpml'
+local scene_manager = require 'engine.scene_manager'
 
 return function (x,y,z,joy)
   --- @class Player: Bomject
+  --- @field playerdata table
   local new_player = bomject 'Player' {
     _x = x,
     _y = y,
@@ -107,6 +109,20 @@ return function (x,y,z,joy)
         if self.ground.tag_conveyor and tonumber(self.ground.tag_conveyor) then
           self.vec3_vel.x = self.vec3_vel.x + tonumber(self.ground.tag_conveyor)
         end
+        if self.ground.tag_scene_transition then
+          local metal_count = 0
+          for i,v in pairs(WORLD.objects) do
+            if v.__type == 'Metal' then
+              metal_count = metal_count + 1
+            end
+          end
+          if metal_count == 0 then
+            scene_manager.load(self.ground.tag_scene_transition)
+            for i,v in pairs(GAME) do
+              print(v)
+            end
+          end
+        end
       end
 
       for i,v in pairs(WORLD.objects) do
@@ -114,9 +130,11 @@ return function (x,y,z,joy)
           if (self.vec3_pos:dist(v.vec3_pos) < v.width) then
             self:set_state('squat')
             v:destroy()
+            self.playerdata.score = self.playerdata.score + v.price
           end
         end
       end
+      
 
       local collision_top, collision_wall = WORLD.collide(self, dt)
 

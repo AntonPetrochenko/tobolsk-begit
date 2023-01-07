@@ -2,6 +2,8 @@ local engine = require 'engine.init'
 local player = require 'game.objects.player'
 local ffi = require ('ffi')
 
+GAME = {}
+
 function engine.update(dt)
   WORLD.update(dt)
 end
