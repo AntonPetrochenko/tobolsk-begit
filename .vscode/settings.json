@@ -1,0 +1,12 @@
+{
+  "Lua.diagnostics.disable": [
+    "undefined-global"
+  ],
+  "Lua.workspace.checkThirdParty": true,
+  "Lua.hint.arrayIndex": "Enable",
+  "Lua.runtime.version": "LuaJIT",
+  "Lua.workspace.library": [
+    "${3rd}/love2d/library"
+  ],
+  "diffEditor.codeLens": false
+}
