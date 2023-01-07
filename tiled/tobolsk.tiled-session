@@ -6,10 +6,12 @@
     "activeFile": "",
     "expandedProjectPaths": [
     ],
+    "exportAsImage.useCurrentScale": true,
     "fileStates": {
     },
     "last.imagePath": "D:/homedev/tobolsk-begit/tiled",
     "map.fixedSize": false,
+    "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "openFiles": [

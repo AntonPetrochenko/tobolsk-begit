@@ -46,6 +46,10 @@ end
 function love.keypressed(key, scancode, isrepeat)
   imgui.KeyPressed(key)
   if callbacks.keypressed then callbacks.keypressed(key, scancode, isrepeat) end
+
+  if key == 'f11' then
+    love.window.setMode(0,0)
+  end
 end
 
 function love.keyreleased(key)
