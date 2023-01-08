@@ -63,9 +63,18 @@ function SCREENSPACE(x,y,z, ...)
   return 0, 0, ...
 end
 
+SCREENSPACE_NEUTRAL = SCREENSPACE
+
 function world.set_screen_space_transforms(fn)
   print('Setting screen space as ', fn)
   SCREENSPACE = fn
+  SCREENSPACE_NEUTRAL = function (...)
+    local a,b,c = CAMERA_X, CAMERA_Y, CAMERA_Z
+    CAMERA_X, CAMERA_Y, CAMERA_Z = 0,0,0
+    local out_x, out_y = SCREENSPACE(...)
+    CAMERA_X, CAMERA_Y, CAMERA_Z = a,b,c
+    return out_x, out_y
+  end
   -- test screen space function for compat with draw function calls
   local a,b,c,d = fn(1,2,3,4)
   if (c ~= 4) then
@@ -364,7 +373,7 @@ function world.ray_downwards(in_x,in_y,in_z)
     end
   end
 
-  local test_z = in_z + 1 --small push, just in case we're already in direct collision
+  local test_z = in_z + 10 --small push, just in case we're already in direct collision
   local max_z = -9999999
   local max_z_object = nil
 
@@ -706,6 +715,14 @@ function world.editor()
                 local avg = (v.z_left + v.z_right) / 2
                 v.z_left = avg
                 v.z_right = avg
+              end
+              imgui.Button('Duplicate')
+              if dblClick() then
+                world.create_terrain(v.x_left,v.x_right, v.z_left, v.z_right, v.z_bottom, v.y_far, v.y_near)
+              end
+              imgui.Button('Mirror')
+              if dblClick() then
+                v.z_left, v.z_right = v.z_right, v.z_left
               end
               imgui.Separator()
               tagnameinput = imgui.InputText('Tag',tagnameinput, 32)

@@ -4,16 +4,16 @@ return function(terrain, near)
 
   --different top values are used for near and far
   -- for near mode
-  local near_top_left = {SCREENSPACE(terrain.x_left, terrain.y_near, terrain.z_left)}
-  local near_top_right = {SCREENSPACE(terrain.x_right, terrain.y_near, terrain.z_right)}
+  local near_top_left = {SCREENSPACE_NEUTRAL(terrain.x_left, terrain.y_near, terrain.z_left)}
+  local near_top_right = {SCREENSPACE_NEUTRAL(terrain.x_right, terrain.y_near, terrain.z_right)}
 
   -- for far mode
-  local far_top_left = {SCREENSPACE(terrain.x_left, terrain.y_far, terrain.z_left)}
-  local far_top_right = {SCREENSPACE(terrain.x_right, terrain.y_far, terrain.z_right)}
+  local far_top_left = {SCREENSPACE_NEUTRAL(terrain.x_left, terrain.y_far, terrain.z_left)}
+  local far_top_right = {SCREENSPACE_NEUTRAL(terrain.x_right, terrain.y_far, terrain.z_right)}
 
 
-  local near_bottom_left = {SCREENSPACE(terrain.x_left, terrain.y_near, terrain.z_bottom )}
-  local near_bottom_right = {SCREENSPACE(terrain.x_right, terrain.y_near, terrain.z_bottom)}
+  local near_bottom_left = {SCREENSPACE_NEUTRAL(terrain.x_left, terrain.y_near, terrain.z_bottom )}
+  local near_bottom_right = {SCREENSPACE_NEUTRAL(terrain.x_right, terrain.y_near, terrain.z_bottom)}
 
 
   local selected_top_left = near and near_top_left or far_top_left

@@ -4,9 +4,9 @@ local function update (node)
 end
 
 local function init (node)
-  for i,v in pairs(WORLD.terrain) do
-    for j,k in pairs(v) do
-      if j == 'tag_metal' and v then
+  for _,v in pairs(WORLD.terrain) do
+    if v['tag_metal'] then
+      for __=1,tonumber(v['tag_metal']) or 1 do
         local x = math.random(v.x_left, v.x_right)
         local y = math.random(v.y_near, v.y_far)
         local z = v.get_z_at(v, x)
