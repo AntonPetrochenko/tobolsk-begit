@@ -32,8 +32,14 @@ return function (x,y,z,joy)
     enter = function (self) 
       self.vec3_acc.z = 0
       self.vec3_vel = cpml.vec3.zero()
+      local stun_time = 0.3
+      if self.ground and self.ground['tag_dirt'] then
+        print('v gavno upal')
+        stun_time = 1.3
+      end
+      print(self.ground)
       self:timer({
-        goal = 0.3,
+        goal = stun_time,
         name = 'squat',
         callback = function (self, timer)
           self:set_state('default')
@@ -47,6 +53,12 @@ return function (x,y,z,joy)
       DROPSHADOW(self)
       local sx = self.facing_left and -1 or 1
       self.animations.squat:draw(sx)
+      if self.ground and self.ground['tag_dirt'] then
+        love.graphics.draw(mud_sprite, 0,-5,0,1,1,16,32)
+        love.graphics.draw(mud_sprite, -3,0,0,1,1,16,32)
+        love.graphics.draw(mud_sprite, 4,0,0,1,1,16,32)
+        love.graphics.draw(mud_sprite, 0,0,0,1,1,16,32)
+      end
     end
   })
 
@@ -90,11 +102,11 @@ return function (x,y,z,joy)
 
     if collision_top and self.vec3_vel.z < 1 then
       self.vec3_pos.z = collision_top.z
-
+      self.ground = collision_top.terrain
       if collision_top.vel_z < -200 then
         self:set_state('squat')
       end
-      self.ground = collision_top.terrain
+      
     end
 
     if collision_wall then
