@@ -57,6 +57,14 @@ return function (x,y,z,joy,id)
     end,
     draw = function (self)
       DROPSHADOW(self)
+      love.graphics.setColor(0,0,0,1)
+      for xi=-1,1 do
+          for yi=-1,1 do
+              love.graphics.print(self.playerdata.score,-15 + xi,-90 + yi)
+          end
+      end
+      love.graphics.setColor(1,1,1,1)
+      love.graphics.print(self.playerdata.score,-15,-90)
       local sx = self.facing_left and -1 or 1
       self.animations.squat:draw(sx)
       if self.ground and self.ground['tag_dirt'] then
@@ -302,8 +310,14 @@ return function (x,y,z,joy,id)
       DROPSHADOW(self)
       local sx = self.facing_left and -1 or 1
 
-      
-
+      love.graphics.setColor(0,0,0,1)
+      for xi=-1,1 do
+          for yi=-1,1 do
+              love.graphics.print(self.playerdata.score,-15 + xi,-90 + yi)
+          end
+      end
+      love.graphics.setColor(1,1,1,1)
+      love.graphics.print(self.playerdata.score,-15,-90)
       if self.walking and self.ground then
         self.animations.walk:draw(sx)
       elseif not self.ground then
