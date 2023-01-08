@@ -146,28 +146,39 @@ return function (x,y,z,joy)
           self.vec3_vel.x = self.vec3_vel.x + tonumber(self.ground.tag_conveyor)
         end
         if self.ground.tag_scene_transition then
-          local metal_count = 0
           local players = 0
-          for i,v in pairs(WORLD.objects) do
-            if v.__type == 'Metal' then
-              metal_count = metal_count + 1
-            end
-          end
-          for i,v in pairs(GAME) do
+          local players_alive = 0
+          for _,_ in pairs(GAME) do
             players = players + 1
           end
-          if metal_count == 0 and players >= 2 then
-            scene_manager.load(self.ground.tag_scene_transition)
+          if players >= 2 then
+            self:destroy()
+            for _,v in pairs(GAME) do
+              if v.id == self.playerdata.id then
+                self.playerdata.turn = TURN
+              end
+            end
+            TURN = TURN + 1
+            for _,v in pairs(WORLD.objects) do
+              if v.__type == 'Player' then
+                players_alive = players_alive + 1
+              end
+            end
+            if players_alive == 0 then
+              TURN = 1
+              scene_manager.load(self.ground.tag_scene_transition)
+            end
           end
         end
       end
 
-      for i,v in pairs(WORLD.objects) do
+      for _,v in pairs(WORLD.objects) do
         if v.__type == 'Metal' then
           if (self.vec3_pos:dist(v.vec3_pos) < v.width) then
             self:set_state('squat')
-            v:destroy()
             self.playerdata.score = self.playerdata.score + v.price
+            print(self.playerdata.id,self.playerdata.score)
+            v:destroy()
           end
         end
       end

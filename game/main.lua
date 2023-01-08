@@ -3,6 +3,7 @@ local player = require 'game.objects.player'
 local ffi = require ('ffi')
 
 GAME = {}
+TURN = 1
 
 function engine.update(dt)
   WORLD.update(dt)

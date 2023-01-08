@@ -11,6 +11,7 @@ local function update (node)
       local new_playerdata = {
         id = tonumber(node.joystick_id),
         joystick = target_joystick,
+        turn = 0,
         score = 0
       }
       new_player.playerdata = new_playerdata
@@ -21,8 +22,6 @@ local function update (node)
 end
 
 local function init (node)
-  print(node.test_field)
-  
   local target_joystick = available_joysticks[tonumber(node.joystick_id)]
   if not target_joystick then 
     node.update = function() end 
