@@ -166,11 +166,10 @@ function world.do_nodes()
   world.nodes_active = true
 
   for _, terrain in pairs(world.terrain) do
-    world.add(masker(terrain, true))
-    -- if not terrain["tag_no_far_mask"] then
-    world.add(masker(terrain, false))
-    -- world.add(masker(terrain, false, true, _))
-    -- end
+    if not terrain['tag_nomask'] then
+      world.add(masker(terrain, true))
+      world.add(masker(terrain, false))
+    end
   end
 end
 

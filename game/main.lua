@@ -1,6 +1,7 @@
 local engine = require 'engine.init'
 local player = require 'game.objects.player'
 local ffi = require ('ffi')
+local scene_manager = require('engine.scene_manager')
 
 FONT = love.graphics.newFont("/assets/fonts/PressStart2P-Regular.ttf",20)
 love.graphics.setFont( FONT )
@@ -29,8 +30,8 @@ local names = {
 function engine.draw()
   if IS_GAME then
     WORLD.draw()
-    imgui.ShowDemoWindow()
-    WORLD.editor()
+    -- imgui.ShowDemoWindow()
+    -- WORLD.editor()
   else
     local player_id = 0
     love.graphics.setColor(1,1,1,1)
@@ -54,4 +55,6 @@ function engine.load()
   WORLD.set_screen_space_transforms(function(x,y,z, ...)
     return x + CAMERA_X, (y + CAMERA_Y)/2 - (z + CAMERA_Z), ...
   end)
+
+  scene_manager.load('start_scene')
 end

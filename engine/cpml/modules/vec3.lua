@@ -30,7 +30,7 @@ if type(jit) == "table" and jit.status() then
 end
 
 --- Constants
--- @table vec3
+-- @table vec3RR
 -- @field unit_x X axis of rotation
 -- @field unit_y Y axis of rotation
 -- @field unit_z Z axis of rotation
