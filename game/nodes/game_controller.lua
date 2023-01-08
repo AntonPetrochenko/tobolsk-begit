@@ -5,11 +5,10 @@ local function update (node)
 end
 
 local function init (node)
-  for old_node_idx,old_node in pairs(WORLD.nodes) do
-    for i,v in pairs(old_node) do
-      -- local new_player = player(v.x - i * math.random(), v.y - i * math.random(), v.z, GAME[i].)
-      print(GAME[i])
-    end
+  for _,v in pairs(GAME) do
+    local new_player = player(node.x - v.id * math.random() - v.turn * 32, node.y - v.id * math.random(), node.z, v.joystick)
+    WORLD.add(new_player)
+    new_player.playerdata = v
   end
 end
 
