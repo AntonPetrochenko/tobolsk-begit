@@ -80,6 +80,7 @@ return function (name)
     ---@param frame_delay number interval between each frame
     function bomject.make_animation(self, name, directory, extension, duration, frame_delay)
       ---@class BomjectSpriteAnimation
+      ---@field on_finish function
       local new_animation = {}
 
       ---@type table<number, love.Image>
@@ -90,6 +91,7 @@ return function (name)
 
       ---@param animation BomjectSpriteAnimation
       function new_animation.draw(animation, sx, sy, r)
+        new_animation.rendering = true
         local sx = sx or 1
         local sy = sy or 1
         local r = r or 0
@@ -108,7 +110,13 @@ return function (name)
         callback = function (in_self, timer) 
           timer:reset()
           new_animation.current_frame = new_animation.current_frame + 1
-          if new_animation.current_frame > #new_animation.frames then new_animation.current_frame = 1 end
+          if new_animation.current_frame > #new_animation.frames then 
+            new_animation.current_frame = 1
+            if new_animation.on_finish and new_animation.rendering then
+              new_animation.on_finish()
+            end
+          end
+          new_animation.rendering = false
         end
       })
 
@@ -131,6 +139,7 @@ return function (name)
       self.__current_draw_function = new_state.draw
       self.__current_update_function = new_state.update
       self.__transforms = new_state.transforms
+      self.__state_name = name
     end
 
     function bomject.define_state(self, name, state)

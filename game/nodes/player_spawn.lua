@@ -6,7 +6,7 @@ local function update (node)
   local target_joystick = available_joysticks[tonumber(node.joystick_id)]
   if target_joystick and target_joystick:isGamepadDown('start') then
     for i=0,0,4 do
-      local new_player = player(node.x - i * math.random(), node.y - i * math.random(), node.z, target_joystick)
+      local new_player = player(node.x - i * math.random(), node.y - i * math.random(), node.z, target_joystick, node.joystick_id)
       WORLD.add(new_player)
       local new_playerdata = {
         id = tonumber(node.joystick_id),
